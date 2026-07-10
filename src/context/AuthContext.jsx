@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { refreshToken, logoutUser } from "../services/auth.service";
 import { isTokenExpired } from "../utils/helper";
+import { jwtDecode } from "jwt-decode";
 
 export const AuthContext = createContext();
 
@@ -42,16 +43,14 @@ export const AuthProvider = ({ children }) => {
         checkAuth();
     }, []);
 
-    const login = (accessToken, userData) => {
+    const login = (accessToken) => {
         localStorage.setItem("accessToken", accessToken);
+        const decoded = jwtDecode(accessToken);
 
-        setUser(userData);
-
+        setUser(decoded);
         setIsLoggedIn(true);
-
-        setLoading(false);
     };
-    
+
     const logout = async () => {
         try {
             await logoutUser();

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { loginUser } from '../services/auth.service';
+import { toast } from 'react-toastify';
 import { useAuth } from '../hooks/useAuth';
 
 const filter = {
@@ -12,8 +13,7 @@ const LoginForm = () => {
     const [userData, setUserData] = useState(filter)
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate()
-    const { login } = useAuth;
-
+    const{login}=useAuth()
     const handleLogin = async (e) => {
         e.preventDefault();
 
@@ -31,11 +31,8 @@ const LoginForm = () => {
 
         try {
             const result = await loginUser(userData);
-
-            login(result.accessToken, result.user);
-
-            toast.success(result.message);
-
+            toast.success(result.message);            
+            login(result.accessToken)
             navigate("/");
         } catch (error) {
             toast.error(error.response?.data?.message || "Login failed");
