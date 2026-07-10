@@ -1,15 +1,34 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import logo from "../../assets/logo.png"
 import { IoIosSearch } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import ProfileModal from "../profile/profileModal";
 
 const Navbar = () => {
 
     const navigate = useNavigate()
     const { isLoggedIn, user, logout, loading } = useAuth()
+    const [showProfile, setShowProfile] = useState(false);
+    const modalRef = useRef(null);
 
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (
+                modalRef.current &&
+                !modalRef.current.contains(event.target)
+            ) {
+                setShowProfile(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 
     return (
         <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
@@ -38,7 +57,9 @@ const Navbar = () => {
                         Home
                     </li>
 
-                    <li className="cursor-pointer font-medium text-gray-700 hover:text-green-600 transition">
+                    <li className="cursor-pointer font-medium text-gray-700 hover:text-green-600 transition"
+                    onClick={()=>{navigate('/charities')}}
+                    >
                         Charities
                     </li>
 
@@ -64,7 +85,10 @@ const Navbar = () => {
 
                     {!loading && (
                         isLoggedIn ? (
-                            <button className="text-gray-700 hover:text-green-600">
+                            <button
+                                className="text-gray-700 hover:text-green-600"
+                                onClick={() => setShowProfile((prev) => !prev)}
+                            >
                                 <CgProfile size={28} />
                             </button>
                         ) : (
@@ -76,7 +100,11 @@ const Navbar = () => {
                             </button>
                         )
                     )}
-
+                    <ProfileModal
+                        isOpen={showProfile}
+                        onClose={() => setShowProfile(false)}
+                        onLogout={logout}
+                    />
                 </div>
 
             </nav>

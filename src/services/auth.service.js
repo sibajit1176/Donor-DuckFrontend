@@ -43,4 +43,17 @@ export const getProfileDetails = async () => {
             Authorization: `Bearer ${token}`,
         },
     })
+    return response.data
 }
+
+export const editProfileDetails = async (payload) => {
+    const token = localStorage.getItem("accessToken");
+
+    const response = await api.post("/auth/editProfileDetails",payload, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+    return response.data
+}
+
