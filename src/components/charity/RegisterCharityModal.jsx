@@ -71,8 +71,8 @@ const RegisterCharityModal = ({
 
                             <input
                                 type="text"
-                                name="charityName"
-                                value={formData.charityName}
+                                name="organizationName"
+                                value={formData.organizationName}
                                 onChange={handleChange}
                                 placeholder="Helping Hands Foundation"
                                 className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2.5 outline-none focus:border-green-500 focus:ring-2 focus:ring-green-100"

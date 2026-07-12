@@ -7,11 +7,76 @@ import {
 
 const DonationStats = ({ role, stats }) => {
 
-    let cards = [];
+    // let cards = [];
 
-    if (role === "USER") {
+    // if (role === "USER") {
 
-        cards = [
+    //     cards = [
+    //         {
+    //             title: "Total Donated",
+    //             value: `₹${stats.totalAmount}`,
+    //             icon: <FiDollarSign size={30} />,
+    //             bg: "bg-green-100",
+    //             text: "text-green-600",
+    //         },
+    //         {
+    //             title: "Total Donations",
+    //             value: stats.totalDonations,
+    //             icon: <FiHeart size={30} />,
+    //             bg: "bg-red-100",
+    //             text: "text-red-500",
+    //         },
+    //         {
+    //             title: "Projects Supported",
+    //             value: stats.totalProjects,
+    //             icon: <FiFolder size={30} />,
+    //             bg: "bg-blue-100",
+    //             text: "text-blue-500",
+    //         },
+    //         {
+    //             title: "Charities Supported",
+    //             value: stats.totalCharities,
+    //             icon: <FiUsers size={30} />,
+    //             bg: "bg-yellow-100",
+    //             text: "text-yellow-600",
+    //         },
+    //     ];
+
+    // } else {
+
+    //     cards = [
+    //         {
+    //             title: "Total Received",
+    //             value: `₹${stats.totalReceived}`,
+    //             icon: <FiDollarSign size={30} />,
+    //             bg: "bg-green-100",
+    //             text: "text-green-600",
+    //         },
+    //         {
+    //             title: "Total Donors",
+    //             value: stats.totalDonors,
+    //             icon: <FiUsers size={30} />,
+    //             bg: "bg-blue-100",
+    //             text: "text-blue-500",
+    //         },
+    //         {
+    //             title: "Projects",
+    //             value: stats.totalProjects,
+    //             icon: <FiFolder size={30} />,
+    //             bg: "bg-purple-100",
+    //             text: "text-purple-600",
+    //         },
+    //         {
+    //             title: "Active Projects",
+    //             value: stats.activeProjects,
+    //             icon: <FiHeart size={30} />,
+    //             bg: "bg-orange-100",
+    //             text: "text-orange-600",
+    //         },
+    //     ];
+
+    // }
+    let  cards = [
             {
                 title: "Total Donated",
                 value: `₹${stats.totalAmount}`,
@@ -42,40 +107,6 @@ const DonationStats = ({ role, stats }) => {
             },
         ];
 
-    } else {
-
-        cards = [
-            {
-                title: "Total Received",
-                value: `₹${stats.totalReceived}`,
-                icon: <FiDollarSign size={30} />,
-                bg: "bg-green-100",
-                text: "text-green-600",
-            },
-            {
-                title: "Total Donors",
-                value: stats.totalDonors,
-                icon: <FiUsers size={30} />,
-                bg: "bg-blue-100",
-                text: "text-blue-500",
-            },
-            {
-                title: "Projects",
-                value: stats.totalProjects,
-                icon: <FiFolder size={30} />,
-                bg: "bg-purple-100",
-                text: "text-purple-600",
-            },
-            {
-                title: "Active Projects",
-                value: stats.activeProjects,
-                icon: <FiHeart size={30} />,
-                bg: "bg-orange-100",
-                text: "text-orange-600",
-            },
-        ];
-
-    }
 
     return (
         <div className="grid md:grid-cols-4 gap-6 mt-8">

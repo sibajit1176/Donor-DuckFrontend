@@ -10,34 +10,38 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const checkAuth = async () => {
-        try {
-            let token = localStorage.getItem("accessToken");
+  const checkAuth = async () => {
+    try {
+        let token = localStorage.getItem("accessToken");
 
-            if (!token || isTokenExpired(token)) {
-                const result = await refreshToken();
+        if (!token || isTokenExpired(token)) {
+            const result = await refreshToken();
 
-                token = result.accessToken;
+            token = result.accessToken;
 
-                localStorage.setItem("accessToken", token);
-            }
-
-            setIsLoggedIn(true);
-
-        } catch (error) {
-
-            localStorage.removeItem("accessToken");
-
-            setIsLoggedIn(false);
-
-            setUser(null);
-
-        } finally {
-
-            setLoading(false);
-
+            localStorage.setItem("accessToken", token);
         }
-    };
+
+        const decoded = jwtDecode(token);
+
+        setUser(decoded);
+
+        setIsLoggedIn(true);
+
+    } catch (error) {
+
+        localStorage.removeItem("accessToken");
+
+        setUser(null);
+
+        setIsLoggedIn(false);
+
+    } finally {
+
+        setLoading(false);
+
+    }
+};
 
     useEffect(() => {
         checkAuth();
@@ -51,22 +55,19 @@ export const AuthProvider = ({ children }) => {
         setIsLoggedIn(true);
     };
 
-    const logout = async () => {
-        try {
-            await logoutUser();
-        } catch (error) {
-            console.error(error);
-        }
+   const logout = async () => {
+    try {
+        await logoutUser();
+    } catch (error) {
+        console.error(error);
+    }
 
-        localStorage.removeItem("accessToken");
+    localStorage.removeItem("accessToken");
 
-        setUser(null);
+    setUser(null);
 
-        setIsLoggedIn(false);
-
-        setLoading(false);
-    };
-
+    setIsLoggedIn(false);
+};
     return (
         <AuthContext.Provider
             value={{
