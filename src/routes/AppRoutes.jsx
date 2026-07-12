@@ -8,6 +8,7 @@ import Profile from '../pages/user/Profile'
 import CharityList from '../pages/charity/CharityList'
 import { useAuth } from "../hooks/useAuth";
 import ProtectedRoute from './ProtectedRoute'
+import MyCharity from '../pages/charity/MyCharity'
 
 const AppRoutes = () => {
   const { isAuthenticated, loading } = useAuth();
@@ -17,6 +18,8 @@ const AppRoutes = () => {
       <Route element={<ProtectedRoute />}>
         <Route path="/Profile" element={<Profile />} />
         <Route path="/charities" element={<CharityList />} />
+        <Route path="/mycharities" element={<MyCharity />} />
+
       </Route>
       <Route path='/' element={<Dashboard />} />
       <Route path='/register' element={<Register />} />
