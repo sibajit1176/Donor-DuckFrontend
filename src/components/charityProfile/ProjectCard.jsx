@@ -92,7 +92,7 @@ const ProjectCard = ({ project }) => {
                 </div>
 
                 <Link
-                    to={`/project/${project.id}`}
+                    to={`/projectDetails/${project.id}`}
                     className="mt-5 flex items-center justify-center gap-2 bg-green-50 hover:bg-green-100 text-green-700 py-3 rounded-xl font-medium transition"
                 >
 

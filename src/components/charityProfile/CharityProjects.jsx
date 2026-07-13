@@ -6,7 +6,7 @@ const CharityProjects = ({
     projects = [],
     approvalStatus,
     onCreateProject,
-}) => {    
+}) => {
 
     return (
         <div className="bg-white rounded-3xl shadow-lg p-6 mt-8">
@@ -23,7 +23,7 @@ const CharityProjects = ({
                     </p>
                 </div>
 
-                 {projects?.length != 0 && (
+                {projects?.length != 0 && (
                     <button
                         onClick={onCreateProject}
                         className="
@@ -71,23 +71,34 @@ const CharityProjects = ({
                             Create Project
                         </span>
                     </button>
-            )}
+                )}
 
             </div>
 
             {projects.length === 0 ? (
-                <EmptyProject   onCreate={onCreateProject}/>
+                <EmptyProject onCreate={onCreateProject} />
             ) : (
-                <div className="grid xl:grid-cols-3 lg:grid-cols-2 gap-6">
-
-                    {projects.map(project => (
-                        <ProjectCard
-                            key={project.id}
-                            project={project}
-                        />
-                    ))}
-
-                </div>
+                    <div
+                        className="
+        flex
+        gap-6
+        overflow-x-auto
+        overflow-y-hidden
+        pb-3
+        scrollbar-thin
+        scrollbar-thumb-green-400
+        scrollbar-track-green-100
+    "
+                    >
+                        {projects.map((project) => (
+                            <div
+                                key={project.id}
+                                className="flex-shrink-0 w-[360px]"
+                            >
+                                <ProjectCard project={project} />
+                            </div>
+                        ))}
+                    </div>
             )}
 
         </div>
