@@ -63,7 +63,9 @@ const Navbar = () => {
                         Charities
                     </li>
 
-                    <li className="cursor-pointer font-medium text-gray-700 hover:text-green-600 transition">
+                    <li className="cursor-pointer font-medium text-gray-700 hover:text-green-600 transition"
+                    onClick={()=>{navigate('/AllCharityProjects')}}
+                    >
                         Projects
                     </li>
 
