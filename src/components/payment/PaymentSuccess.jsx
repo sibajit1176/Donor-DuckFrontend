@@ -3,12 +3,10 @@ import {
     FiDownload,
     FiHome,
     FiFolder,
-    FiCreditCard,
 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 
-const PaymentSuccess = ({ payment,onDownload }) => {
-    
+const PaymentSuccess = ({ payment, onDownload }) => {
 
     const navigate = useNavigate();
 
@@ -17,53 +15,56 @@ const PaymentSuccess = ({ payment,onDownload }) => {
         <div
             className="
                 bg-white
-                rounded-[32px]
+                rounded-3xl
                 shadow-xl
                 border
                 border-gray-100
-                p-10
+                p-6
             "
         >
+
+            {/* Success Header */}
 
             <div className="flex flex-col items-center">
 
                 <div
                     className="
-                        h-28
-                        w-28
+                        h-20
+                        w-20
                         rounded-full
                         bg-green-100
                         flex
                         items-center
                         justify-center
-                        animate-bounce
                     "
                 >
 
                     <FiCheckCircle
-                        size={65}
+                        size={48}
                         className="text-green-600"
                     />
 
                 </div>
 
-                <h2 className="mt-6 text-4xl font-bold text-gray-800">
+                <h2 className="mt-4 text-3xl font-bold text-gray-800">
 
                     Payment Successful
 
                 </h2>
 
-                <p className="mt-2 text-gray-500">
+                <p className="mt-1 text-sm text-gray-500">
 
-                    Your donation has been received successfully.
+                    Thank you! Your donation has been received successfully.
 
                 </p>
 
             </div>
 
-            <div className="mt-10 rounded-3xl bg-green-50 border border-green-100 p-8">
+            {/* Payment Details */}
 
-                <div className="grid md:grid-cols-2 gap-6">
+            <div className="mt-6 rounded-2xl bg-green-50 border border-green-100 p-5">
+
+                <div className="grid grid-cols-2 gap-x-8 gap-y-4">
 
                     <Info
                         label="Amount"
@@ -92,29 +93,32 @@ const PaymentSuccess = ({ payment,onDownload }) => {
 
                     <Info
                         label="Date"
-                        value={payment.date}
+                        value={new Date(payment.createdAt).toLocaleString("en-IN")}
                     />
 
                 </div>
 
             </div>
 
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
+            {/* Action Buttons */}
+
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
 
                 <button
+                    onClick={onDownload}
                     className="
                         flex
                         items-center
                         gap-2
-                        h-12
-                        px-7
+                        h-11
+                        px-5
                         rounded-xl
                         bg-green-600
-                        text-white
                         hover:bg-green-700
+                        text-white
+                        font-medium
                         transition
                     "
-                    onClick={onDownload}
                 >
 
                     <FiDownload />
@@ -125,14 +129,14 @@ const PaymentSuccess = ({ payment,onDownload }) => {
 
                 <button
                     onClick={() =>
-                        navigate(`/project/${donation.projectId}`)
+                        navigate(`/project/${payment.projectId}`)
                     }
                     className="
                         flex
                         items-center
                         gap-2
-                        h-12
-                        px-7
+                        h-11
+                        px-5
                         rounded-xl
                         border
                         border-gray-200
@@ -153,8 +157,8 @@ const PaymentSuccess = ({ payment,onDownload }) => {
                         flex
                         items-center
                         gap-2
-                        h-12
-                        px-7
+                        h-11
+                        px-5
                         rounded-xl
                         border
                         border-gray-200
@@ -181,17 +185,17 @@ const Info = ({ label, value }) => (
 
     <div>
 
-        <p className="text-sm text-gray-500">
+        <p className="text-xs text-gray-500 uppercase tracking-wide">
 
             {label}
 
         </p>
 
-        <h3 className="font-bold text-lg text-gray-800 mt-1">
+        <p className="mt-1 font-semibold text-gray-800 break-words">
 
             {value}
 
-        </h3>
+        </p>
 
     </div>
 
