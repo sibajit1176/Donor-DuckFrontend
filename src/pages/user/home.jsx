@@ -3,7 +3,7 @@ import Navbar from '../../components/layout/Navbar'
 import { isTokenExpired } from '../../utils/helper'
 import { refreshToken } from '../../services/auth.service'
 
-const Home = () => {
+const Homey = () => {
    
     return (
         <div>
@@ -12,4 +12,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default Homey

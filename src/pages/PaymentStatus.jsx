@@ -91,9 +91,9 @@ const PaymentStatus = () => {
 
     return (
 
-        <div className="min-h-screen bg-gradient-to-b from-green-50 via-white to-green-50">
+        <div className="h-[calc(100vh-80px)] bg-gradient-to-b from-green-50 via-white to-green-50">
 
-            <div className="max-w-5xl mx-auto px-6 py-10 space-y-8">
+            <div className="max-w-5xl mx-auto px-6 pt-3 space-y-4">
 
                 <PaymentHeader />
 

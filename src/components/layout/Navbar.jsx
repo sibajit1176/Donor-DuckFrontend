@@ -9,7 +9,7 @@ import ProfileModal from "../profile/profileModal";
 const Navbar = () => {
 
     const navigate = useNavigate()
-    const { isLoggedIn, user, logout, loading } = useAuth()
+    const { isLoggedIn, user, logout, loading ,isAdmin} = useAuth()
     const [showProfile, setShowProfile] = useState(false);
     const modalRef = useRef(null);
 
@@ -35,7 +35,9 @@ const Navbar = () => {
             <nav className="w-full flex items-center justify-between h-16 px-6">
 
                 {/* Logo */}
-                <div className="flex items-center gap-3 cursor-pointer">
+                <div className="flex items-center gap-3 cursor-pointer"
+                onClick={()=>{navigate('/')}}
+                >
 
                     <img
                         src={logo}
@@ -53,7 +55,9 @@ const Navbar = () => {
 
                 <ul className="hidden md:flex items-center gap-10">
 
-                    <li className="cursor-pointer font-medium text-gray-700 hover:text-green-600 transition">
+                    <li className="cursor-pointer font-medium text-gray-700 hover:text-green-600 transition"
+                    onClick={()=>{navigate('/')}}
+                    >
                         Home
                     </li>
 
@@ -68,8 +72,18 @@ const Navbar = () => {
                     >
                         Projects
                     </li>
+                    {isAdmin && <>
+                    <li className="cursor-pointer font-medium text-gray-700 hover:text-green-600 transition"
+                    onClick={()=>{navigate('/adminDashBoard')}}
+                    >
+                        Dashboard
+                    </li>
+                    </>}
+                     
 
-                    <li className="cursor-pointer font-medium text-gray-700 hover:text-green-600 transition">
+                    <li className="cursor-pointer font-medium text-gray-700 hover:text-green-600 transition"
+                    onClick={()=>{navigate('/AboutUs')}}
+                    >
                         About Us
                     </li>
 
