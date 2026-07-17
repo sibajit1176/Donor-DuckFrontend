@@ -6,8 +6,11 @@ import { initializeCashfree } from "../../utils/cashfree.js";
 import { getprojectsForAllUser } from "../../services/project.service";
 import DonationModal from "../../components/projects/DonationModal.jsx";
 import { createDonation } from "../../services/donation.service.js";
+import { useAuth } from "../../hooks/useAuth.js";
 
 const Projects = () => {
+
+    const {isLoggedIn}=useAuth()
 
     const [loading, setLoading] = useState(true);
 
@@ -158,6 +161,7 @@ const Projects = () => {
                     <ProjectList
                         projects={projects}
                         onDonate={handleDonate}
+                        isLoggedIn={isLoggedIn}
                     />
 
                 </div>

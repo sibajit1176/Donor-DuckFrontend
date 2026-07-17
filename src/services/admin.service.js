@@ -66,3 +66,16 @@ export const updateUserStatus=async(payload)=>{
     return response.data;
 }
 
+export const getAllDonationHistory=async()=>{
+     const token = localStorage.getItem("accessToken");
+
+    const response = await api.get("/admin/donationManagement", {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+
+    return response.data;
+}
+
+
