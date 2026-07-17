@@ -18,6 +18,11 @@ import CharityManagement from '../pages/admin/CharityManagement'
 import UserManagement from '../pages/admin/UserManagement'
 import AboutUs from '../pages/AboutUs'
 import Home from '../pages/Home'
+import ForgotPassword from '../pages/auth/ForgotPassword'
+import VerifyOtp from '../pages/auth/VerifyOtp'
+import ResetPassword from '../pages/auth/ResetPassword'
+import DonationHistory from '../pages/admin/DonationHistory'
+import CharityDetails from '../pages/charity/CharityDetails'
 
 const AppRoutes = () => {
   const { isAuthenticated, loading } = useAuth();
@@ -26,7 +31,6 @@ const AppRoutes = () => {
 
       <Route element={<ProtectedRoute />}>
         <Route path="/Profile" element={<Profile />} />
-        <Route path="/charities" element={<CharityList />} />
         <Route path="/mycharities" element={<MyCharity />} />
         <Route path="/projectDetails/:id" element={<ProjectProfile />} />
         <Route path="/paymentStatus/:order_id" element={<PaymentStatus />} />
@@ -36,14 +40,18 @@ const AppRoutes = () => {
         <Route path='/adminDashBoard' element={<AdminDashboard />} />
         <Route path='/CharityManagement' element={<CharityManagement />} />
         <Route path='/UserManagement' element={<UserManagement />} />
-
+      <Route path="/donationManagement" element={<DonationHistory />} />
       </Route>
       <Route path='/' element={<Home />} />
       <Route path='/register' element={<Register />} />
       <Route path="/login" element={<Login />} />
       <Route path="/AllCharityProjects" element={<Projects />} />
       <Route path='/AboutUs' element={<AboutUs />} />
-
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/verify-otp" element={<VerifyOtp />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="/charities" element={<CharityList />} />
+            <Route path="/charities/details/:id" element={<CharityDetails />} />
     </Routes>
   )
 }

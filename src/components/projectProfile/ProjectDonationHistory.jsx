@@ -117,7 +117,7 @@ const ProjectDonationHistory = ({
 
                                                 <p className="font-semibold text-gray-800">
 
-                                                    {donation.name}
+                                                    {donation.user.name}
 
                                                 </p>
 

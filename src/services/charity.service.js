@@ -44,3 +44,9 @@ export const updateCharityProfile = async (payload) => {
     })
     return result.data
 }
+export const getCharityProfileAllDetailsforAlluser = async (id) => {
+    console.log(id,"========");
+    
+    const result = await api.get(`/charities/getCharityProfileDetailsforAllUser/${id}`)
+    return result.data
+}

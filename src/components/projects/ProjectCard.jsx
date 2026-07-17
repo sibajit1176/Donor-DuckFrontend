@@ -5,7 +5,7 @@ import {
 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 
-const ProjectCard = ({ project,onDonate}) => {
+const ProjectCard = ({ project,onDonate,isLoggedIn}) => {
     const navigate = useNavigate();
 
     const progress = Math.min(
@@ -158,7 +158,14 @@ const ProjectCard = ({ project,onDonate}) => {
                     </div>
 
                     <button
-                        onClick={() => onDonate(project)}
+                        onClick={() => {
+                            if(!isLoggedIn){
+                                navigate("/login")
+                                return
+                            }
+                            onDonate(project)
+                           
+                        }}
                         className="
                             relative
                             overflow-hidden

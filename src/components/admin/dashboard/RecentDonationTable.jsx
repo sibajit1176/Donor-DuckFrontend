@@ -1,11 +1,16 @@
 import {
     FiCheckCircle,
     FiClock,
-    FiXCircle,
     FiEye,
+    FiXCircle,
+    FiFolder,
+    FiHeart,
 } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 const RecentDonationTable = ({ donations = [] }) => {
+
+    const navigation=useNavigate()
 
     const getStatus = (status) => {
 
@@ -13,20 +18,30 @@ const RecentDonationTable = ({ donations = [] }) => {
 
             case "SUCCESS":
                 return {
-                    color: "bg-green-100 text-green-700",
-                    icon: <FiCheckCircle />,
+                    color:
+                        "bg-green-100 text-green-700 border-green-200",
+                    icon: <FiCheckCircle size={14} />,
                 };
 
             case "PENDING":
                 return {
-                    color: "bg-yellow-100 text-yellow-700",
-                    icon: <FiClock />,
+                    color:
+                        "bg-yellow-100 text-yellow-700 border-yellow-200",
+                    icon: <FiClock size={14} />,
+                };
+
+            case "FAILED":
+                return {
+                    color:
+                        "bg-red-100 text-red-700 border-red-200",
+                    icon: <FiXCircle size={14} />,
                 };
 
             default:
                 return {
-                    color: "bg-red-100 text-red-700",
-                    icon: <FiXCircle />,
+                    color:
+                        "bg-gray-100 text-gray-700 border-gray-200",
+                    icon: <FiClock size={14} />,
                 };
 
         }
@@ -35,29 +50,41 @@ const RecentDonationTable = ({ donations = [] }) => {
 
     return (
 
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-100">
+        <div className="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden">
 
             {/* Header */}
 
-            <div className="flex justify-between items-center px-6 py-5 border-b">
+            <div className="flex items-center justify-between px-8 py-6 border-b bg-gradient-to-r from-green-50 to-white">
 
                 <div>
 
-                    <h2 className="text-xl font-bold text-gray-800">
+                    <h2 className="text-2xl font-bold text-gray-800">
 
                         Recent Donations
 
                     </h2>
 
-                    <p className="text-sm text-gray-500 mt-1">
+                    <p className="text-gray-500 mt-1">
 
-                        Latest donations received
+                        Latest donations received across all charities
 
                     </p>
 
                 </div>
 
-                <button className="px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 transition">
+                <button
+                    className="
+                        px-5
+                        py-2.5
+                        rounded-xl
+                        bg-green-600
+                        hover:bg-green-700
+                        text-white
+                        font-medium
+                        transition
+                    "
+                    onClick={()=>navigation('/donationManagement')}
+                >
 
                     View All
 
@@ -67,9 +94,24 @@ const RecentDonationTable = ({ donations = [] }) => {
 
             {donations.length === 0 ? (
 
-                <div className="py-16 text-center text-gray-400">
+                <div className="py-20 text-center">
 
-                    No donations found.
+                    <FiHeart
+                        className="mx-auto text-gray-300"
+                        size={45}
+                    />
+
+                    <h3 className="mt-4 text-lg font-semibold text-gray-700">
+
+                        No Donations Found
+
+                    </h3>
+
+                    <p className="text-gray-500 mt-2">
+
+                        Donations will appear here once users donate.
+
+                    </p>
 
                 </div>
 
@@ -77,43 +119,49 @@ const RecentDonationTable = ({ donations = [] }) => {
 
                 <div className="overflow-x-auto">
 
-                    <table className="w-full">
+                    <table className="min-w-full">
 
                         <thead>
 
-                            <tr className="bg-gray-50 text-gray-600">
+                            <tr className="bg-gray-50 text-gray-600 text-sm uppercase tracking-wide">
 
-                                <th className="text-left px-6 py-4">
+                                <th className="px-8 py-4 text-left">
 
                                     Donor
 
                                 </th>
 
-                                <th className="text-left px-6 py-4">
+                                <th className="px-8 py-4 text-left">
 
                                     Charity
 
                                 </th>
 
-                                <th className="text-left px-6 py-4">
+                                <th className="px-8 py-4 text-left">
+
+                                    Project
+
+                                </th>
+
+                                <th className="px-8 py-4 text-left">
 
                                     Amount
 
                                 </th>
 
-                                <th className="text-left px-6 py-4">
+                                <th className="px-8 py-4 text-left">
 
                                     Date
 
                                 </th>
 
-                                <th className="text-left px-6 py-4">
+                                <th className="px-8 py-4 text-left">
 
                                     Status
 
                                 </th>
 
-                                <th className="text-center px-6 py-4">
+                                <th className="px-8 py-4 text-center">
 
                                     Action
 
@@ -133,14 +181,21 @@ const RecentDonationTable = ({ donations = [] }) => {
 
                                     <tr
                                         key={item.id}
-                                        className="border-t hover:bg-green-50 transition"
+                                        className="
+                                            border-t
+                                            hover:bg-green-50
+                                            transition-all
+                                            duration-300
+                                        "
                                     >
 
-                                        <td className="px-6 py-5">
+                                        {/* Donor */}
 
-                                            <div className="flex items-center gap-3">
+                                        <td className="px-8 py-5">
 
-                                                <div className="h-11 w-11 rounded-full bg-green-100 flex items-center justify-center font-bold text-green-700">
+                                            <div className="flex items-center gap-4">
+
+                                                <div className="h-12 w-12 rounded-full bg-gradient-to-r from-green-500 to-emerald-600 text-white flex items-center justify-center font-bold text-lg">
 
                                                     {item.donorName
                                                         ?.charAt(0)
@@ -150,7 +205,7 @@ const RecentDonationTable = ({ donations = [] }) => {
 
                                                 <div>
 
-                                                    <h3 className="font-semibold">
+                                                    <h3 className="font-semibold text-gray-800">
 
                                                         {item.donorName}
 
@@ -158,7 +213,7 @@ const RecentDonationTable = ({ donations = [] }) => {
 
                                                     <p className="text-sm text-gray-500">
 
-                                                        {item.orderId}
+                                                        #{item.orderId}
 
                                                     </p>
 
@@ -168,27 +223,94 @@ const RecentDonationTable = ({ donations = [] }) => {
 
                                         </td>
 
-                                        <td className="px-6">
+                                        {/* Charity */}
 
-                                            {item.organizationName}
+                                        <td className="px-8">
+
+                                            <div className="flex items-center gap-2">
+
+                                                <FiHeart className="text-green-600" />
+
+                                                <span className="font-medium">
+
+                                                    {item.organizationName}
+
+                                                </span>
+
+                                            </div>
 
                                         </td>
 
-                                        <td className="px-6 font-semibold text-green-600">
+                                        {/* Project */}
 
-                                            ₹{Number(item.amount).toLocaleString("en-IN")}
+                                        <td className="px-8">
+
+                                            <div className="flex items-center gap-2">
+
+                                                <FiFolder className="text-blue-500" />
+
+                                                <span>
+
+                                                    {item.projectName}
+
+                                                </span>
+
+                                            </div>
 
                                         </td>
 
-                                        <td className="px-6 text-gray-500">
+                                        {/* Amount */}
 
-                                            {new Date(item.createdAt).toLocaleDateString()}
+                                        <td className="px-8">
+
+                                            <span className="text-lg font-bold text-green-600">
+
+                                                ₹
+                                                {Number(
+                                                    item.amount
+                                                ).toLocaleString(
+                                                    "en-IN"
+                                                )}
+
+                                            </span>
 
                                         </td>
 
-                                        <td className="px-6">
+                                        {/* Date */}
 
-                                            <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium ${badge.color}`}>
+                                        <td className="px-8 text-gray-500">
+
+                                            {new Date(
+                                                item.createdAt
+                                            ).toLocaleDateString(
+                                                "en-IN",
+                                                {
+                                                    day: "2-digit",
+                                                    month: "short",
+                                                    year: "numeric",
+                                                }
+                                            )}
+
+                                        </td>
+
+                                        {/* Status */}
+
+                                        <td className="px-8">
+
+                                            <span
+                                                className={`
+                                                    inline-flex
+                                                    items-center
+                                                    gap-2
+                                                    px-3
+                                                    py-1.5
+                                                    rounded-full
+                                                    text-sm
+                                                    font-semibold
+                                                    border
+                                                    ${badge.color}
+                                                `}
+                                            >
 
                                                 {badge.icon}
 
@@ -198,11 +320,29 @@ const RecentDonationTable = ({ donations = [] }) => {
 
                                         </td>
 
-                                        <td className="text-center">
+                                        {/* Action */}
 
-                                            <button className="h-10 w-10 rounded-lg bg-blue-100 text-blue-600 hover:bg-blue-600 hover:text-white transition">
+                                        <td className="px-8 text-center">
 
-                                                <FiEye />
+                                            <button
+                                                className="
+                                                    h-11
+                                                    w-11
+                                                    rounded-xl
+                                                    bg-blue-100
+                                                    text-blue-600
+                                                    hover:bg-blue-600
+                                                    hover:text-white
+                                                    transition
+                                                    duration-300
+                                                    flex
+                                                    items-center
+                                                    justify-center
+                                                    mx-auto
+                                                "
+                                            >
+
+                                                <FiEye size={18} />
 
                                             </button>
 

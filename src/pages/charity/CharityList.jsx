@@ -44,6 +44,11 @@ const CharityList = () => {
     useEffect(() => {
         fetchInitialData();
     }, []);
+    useEffect(() => {
+    if (isLoggedIn) {
+        fetchMyCharity();
+    }
+}, [isLoggedIn]);
 
     const fetchInitialData = async () => {
 
@@ -211,18 +216,18 @@ const CharityList = () => {
 
                 ) : (
 
-                    <div className="grid lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 gap-6">
 
-                        {charities.map((charity) => (
+    {charities.map((charity) => (
 
-                            <CharityCard
-                                key={charity.id}
-                                charity={charity}
-                            />
+        <CharityCard
+            key={charity.id}
+            charity={charity}
+        />
 
-                        ))}
+    ))}
 
-                    </div>
+</div>
 
                 )}
 
