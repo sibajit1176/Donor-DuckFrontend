@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import CharityProfileHeader from "../../components/charityProfile/CharityProfileHeader";
 import CharityOverviewCards from "../../components/charityProfile/CharityOverviewCards";
@@ -12,7 +12,9 @@ import CreateProjectModal from "../../components/charityProfile/CreateProjectMod
 
 import {
     getCharityProfileAllDetails,
-    updateCharityProfile, // <-- your update api
+    updateCharityProfile,
+    uploadcharityCoverImage,
+    uploadcharityLogoImage, 
 } from "../../services/charity.service";
 import { toast } from "react-toastify";
 import { createProject } from "../../services/project.service";
@@ -27,6 +29,10 @@ const initialProject = {
 };
 
 const MyCharity = () => {
+
+    const logoInputRef = useRef(null);
+    const coverInputRef = useRef(null);
+
     const [loading, setLoading] = useState(true);
 
     const [charity, setCharity] = useState(null);
@@ -48,6 +54,9 @@ const MyCharity = () => {
     const [projectForm, setProjectForm] = useState(initialProject);
 
     const [projectLoading, setProjectLoading] = useState(false);
+
+    const [logoLoading, setLogoLoading] = useState(false);
+    const [coverLoading, setCoverLoading] = useState(false);
 
     useEffect(() => {
         fetchCharityProfile();
@@ -209,6 +218,74 @@ const MyCharity = () => {
         }
     };
 
+    const handleLogoChange = async (e) => {
+        const file = e.target.files[0];
+
+        if (!file) return;
+
+        if (!file.type.startsWith("image/")) {
+            return toast.error("Please select an image.");
+        }
+
+        try {
+            setLogoLoading(true);
+
+            const formData = new FormData();
+
+            formData.append("logo", file);
+
+            // your api
+            const result = await uploadcharityLogoImage(formData);
+
+            toast.success(result.message);
+
+            await fetchCharityProfile();
+
+            e.target.value = "";
+        } catch (error) {
+            toast.error(
+                error.response?.data?.message ||
+                "Failed to upload logo."
+            );
+        } finally {
+            setLogoLoading(false);
+        }
+    };
+
+    const handleCoverChange = async (e) => {
+        const file = e.target.files[0];
+
+        if (!file) return;
+
+        if (!file.type.startsWith("image/")) {
+            return toast.error("Please select an image.");
+        }
+
+        try {
+            setCoverLoading(true);
+
+            const formData = new FormData();
+
+            formData.append("coverImage", file);
+
+            // your api
+            const result = await uploadcharityCoverImage(formData);
+
+            toast.success(result.message);
+
+            await fetchCharityProfile();
+
+            e.target.value = "";
+        } catch (error) {
+            toast.error(
+                error.response?.data?.message ||
+                "Failed to upload cover."
+            );
+        } finally {
+            setCoverLoading(false);
+        }
+    };
+
     if (loading) {
         return (
             <div className="h-[calc(100vh-80px)] flex items-center justify-center">
@@ -234,6 +311,15 @@ const MyCharity = () => {
                     <CharityProfileHeader
                         charity={charity}
                         onEdit={() => setEditOpen(true)}
+
+                        logoInputRef={logoInputRef}
+                        coverInputRef={coverInputRef}
+
+                        onLogoChange={handleLogoChange}
+                        onCoverImageChange={handleCoverChange}
+
+                        logoLoading={logoLoading}
+                        coverLoading={coverLoading}
                     />
 
                     <CharityOverviewCards

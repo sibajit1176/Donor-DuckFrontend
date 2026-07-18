@@ -48,8 +48,6 @@ export const getProfileDetails = async () => {
 
 export const editProfileDetails = async (payload) => {
     const token = localStorage.getItem("accessToken");
-    console.log(payload, "<><><><><><>");
-
     const response = await api.post("/auth/editProfileDetails", payload, {
         headers: {
             Authorization: `Bearer ${token}`,
@@ -158,3 +156,20 @@ export const updatePassword = async (data) => {
     return response.data;
 
 }
+
+export const uploadProfileImage = async (formData) => {
+    const token = localStorage.getItem("accessToken");
+
+    const response = await api.put(
+        "/auth/profile-image",
+        formData,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "multipart/form-data",
+            },
+        }
+    );
+
+    return response.data;
+};

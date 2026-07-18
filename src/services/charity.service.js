@@ -44,9 +44,42 @@ export const updateCharityProfile = async (payload) => {
     })
     return result.data
 }
-export const getCharityProfileAllDetailsforAlluser = async (id) => {
-    console.log(id,"========");
-    
+
+export const getCharityProfileAllDetailsforAlluser = async (id) => {    
     const result = await api.get(`/charities/getCharityProfileDetailsforAllUser/${id}`)
     return result.data
 }
+
+export const uploadcharityLogoImage = async (formData) => {
+    const token = localStorage.getItem("accessToken");
+
+    const response = await api.put(
+        "/charities/charityLogo-image",
+        formData,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "multipart/form-data",
+            },
+        }
+    );
+
+    return response.data;
+};
+
+export const uploadcharityCoverImage = async (formData) => {
+    const token = localStorage.getItem("accessToken");
+
+    const response = await api.put(
+        "/charities/charityCover-image",
+        formData,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "multipart/form-data",
+            },
+        }
+    );
+
+    return response.data;
+};

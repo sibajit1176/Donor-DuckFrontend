@@ -38,7 +38,7 @@ const CharityCard = ({ charity }) => {
 
                 <img
                     src={
-                        charity.logo ||
+                        charity.coverImage ||
                         "https://placehold.co/500x350?text=Charity"
                     }
                     alt={charity.name}

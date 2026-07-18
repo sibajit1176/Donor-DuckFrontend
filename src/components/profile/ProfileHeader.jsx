@@ -15,6 +15,9 @@ const ProfileHeader = ({
     onEdit,
     onVerifyEmail,
     onChangePassword,
+    onProfileImageChange,
+    fileInputRef,
+    profileImageLoading
 }) => {
 
     const copyEmail = () => {
@@ -69,26 +72,41 @@ const ProfileHeader = ({
                             )}
 
                         </div>
-
+                        <input
+                            ref={fileInputRef}
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            onChange={onProfileImageChange}
+                        />
                         <button
+                            type="button"
+                            onClick={() => fileInputRef.current?.click()}
+                            disabled={profileImageLoading}
                             className="
-                                absolute
-                                bottom-1
-                                right-1
-                                h-10
-                                w-10
-                                rounded-full
-                                bg-green-600
-                                text-white
-                                flex
-                                items-center
-                                justify-center
-                                hover:bg-green-700
-                                transition
-                                shadow-lg
-                            "
+        absolute
+        bottom-1
+        right-1
+        flex
+        h-10
+        w-10
+        items-center
+        justify-center
+        rounded-full
+        bg-green-600
+        text-white
+        shadow-lg
+        transition
+        hover:bg-green-700
+        disabled:cursor-not-allowed
+        disabled:opacity-70
+    "
                         >
-                            <FiCamera size={18} />
+                            {profileImageLoading ? (
+                                <div className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                            ) : (
+                                <FiCamera size={18} />
+                            )}
                         </button>
 
                     </div>

@@ -13,6 +13,7 @@ import {
     getProfileDetails,
     sendEmailVerificationOtp,
     updatePassword,
+    uploadProfileImage,
     verifyEmailOtp,
 } from "../../services/auth.service";
 
@@ -20,10 +21,13 @@ import { toast } from "react-toastify";
 import ChangePasswordModal from "../../components/profile/ChangePasswordModal";
 import { useNavigate } from "react-router-dom";
 import DonationHistoryTable from "../../components/profile/DonationHistoryTable";
+import { useRef } from "react";
 
 const Profile = () => {
 
     const navigate = useNavigate()
+
+    const fileInputRef = useRef(null);
 
     const [user, setUser] = useState(null);
 
@@ -49,6 +53,8 @@ const Profile = () => {
         useState(false);
 
     const [donationHistory, setDonationHistory] = useState([]);
+
+    const [profileImageLoading, setProfileImageLoading] = useState(false);
 
     useEffect(() => {
 
@@ -217,6 +223,41 @@ const Profile = () => {
 
     };
 
+   const handleProfileImageChange = async (e) => {
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+        return toast.error("Please select an image.");
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+        return toast.error("Image size must be less than 5MB.");
+    }
+
+    try {
+        setProfileImageLoading(true);
+
+        const formData = new FormData();
+        formData.append("profileImage", file);
+
+        const result = await uploadProfileImage(formData);
+
+        toast.success(result.message);
+
+        await fetchProfile();
+
+        e.target.value = "";
+    } catch (error) {
+        toast.error(
+            error.response?.data?.message ||
+            "Failed to upload image."
+        );
+    } finally {
+        setProfileImageLoading(false);
+    }
+};
     if (loading) {
 
         return (
@@ -252,6 +293,9 @@ const Profile = () => {
                         onChangePassword={() =>
                             setChangePasswordOpen(true)
                         }
+                        fileInputRef={fileInputRef}
+                        onProfileImageChange={handleProfileImageChange}
+                        profileImageLoading={profileImageLoading}
                     />
 
                     <DonationStats
