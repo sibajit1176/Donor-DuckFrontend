@@ -10,7 +10,16 @@ import {
 
 import { CgProfile } from "react-icons/cg";
 
-const CharityProfileHeader = ({ charity, onEdit }) => {
+const CharityProfileHeader = ({   
+    charity,
+    onEdit,
+    coverInputRef,
+    logoInputRef,
+    onCoverImageChange,
+    onLogoChange,
+    coverLoading,
+    logoLoading,
+}) => {
 
     const approved = charity?.approvalStatus === "APPROVED";
 
@@ -20,25 +29,60 @@ const CharityProfileHeader = ({ charity, onEdit }) => {
 
             {/* Cover */}
 
-            <div className="relative h-36 bg-gradient-to-r from-green-700 via-emerald-600 to-green-500">
+            {/* Cover */}
 
-                {charity?.coverImage && (
+<div className="relative h-52 bg-gradient-to-r from-green-700 via-emerald-600 to-green-500">
 
-                    <img
-                        src={charity.coverImage}
-                        alt=""
-                        className="w-full h-full object-cover"
-                    />
+    {charity?.coverImage && (
+        <img
+            src={charity.coverImage}
+            alt="Cover"
+            className="h-full w-full object-cover"
+        />
+    )}
 
-                )}
+    <div className="absolute inset-0 bg-black/20" />
 
-                <div className="absolute inset-0 bg-black/20" />
+    <button
+        type="button"
+        onClick={() => coverInputRef.current?.click()}
+        className="
+            absolute
+            right-5
+            top-5
+            flex
+            items-center
+            gap-2
+            rounded-xl
+            bg-white/90
+            px-4
+            py-2
+            text-sm
+            font-semibold
+            text-gray-800
+            backdrop-blur
+            transition
+            hover:bg-white
+        "
+    >
+        {coverLoading ? (
+            <div className="h-4 w-4 animate-spin rounded-full border-2 border-gray-600 border-t-transparent" />
+        ) : (
+            <FiEdit2 />
+        )}
 
-                <div className="absolute -top-8 -left-10 h-40 w-40 rounded-full bg-white/10" />
+        Change Cover
+    </button>
 
-                <div className="absolute right-10 top-5 h-24 w-24 rounded-full bg-white/10" />
+    <input
+        ref={coverInputRef}
+        type="file"
+        accept="image/*"
+        hidden
+        onChange={onCoverImageChange}
+    />
 
-            </div>
+</div>
 
             {/* Body */}
 
@@ -46,34 +90,73 @@ const CharityProfileHeader = ({ charity, onEdit }) => {
 
                 {/* Logo */}
 
-                <div className="absolute -top-12 left-8">
+                {/* Logo */}
 
-                    <div className="h-24 w-24 rounded-2xl overflow-hidden border-4 border-white shadow-xl bg-white">
+<div className="absolute -top-16 left-8">
 
-                        {charity?.logo ? (
+    <div className="relative">
 
-                            <img
-                                src={charity.logo}
-                                alt={charity.organizationName}
-                                className="w-full h-full object-cover"
-                            />
+        <div className="h-32 w-32 overflow-hidden rounded-3xl border-[6px] border-white bg-white shadow-xl">
 
-                        ) : (
-
-                            <div className="w-full h-full flex items-center justify-center">
-
-                                <CgProfile
-                                    size={60}
-                                    className="text-green-600"
-                                />
-
-                            </div>
-
-                        )}
-
-                    </div>
-
+            {charity?.logo ? (
+                <img
+                    src={charity.logo}
+                    alt={charity.organizationName}
+                    className="h-full w-full object-cover"
+                />
+            ) : (
+                <div className="flex h-full w-full items-center justify-center bg-gray-50">
+                    <CgProfile
+                        size={72}
+                        className="text-green-600"
+                    />
                 </div>
+            )}
+
+        </div>
+
+        <button
+            type="button"
+            onClick={() => logoInputRef.current?.click()}
+            disabled={logoLoading}
+            className="
+                absolute
+                -right-1
+                -bottom-1
+                flex
+                h-11
+                w-11
+                items-center
+                justify-center
+                rounded-full
+                border-4
+                border-white
+                bg-green-600
+                text-white
+                shadow-lg
+                transition
+                hover:bg-green-700
+                disabled:opacity-70
+            "
+        >
+            {logoLoading ? (
+                <div className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
+            ) : (
+                <FiEdit2 size={18} />
+            )}
+        </button>
+
+        <input
+            ref={logoInputRef}
+            type="file"
+            accept="image/*"
+            hidden
+            onChange={onLogoChange}
+        />
+
+    </div>
+
+</div>
 
                 {/* Content */}
 

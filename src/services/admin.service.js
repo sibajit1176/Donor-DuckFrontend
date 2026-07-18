@@ -78,4 +78,26 @@ export const getAllDonationHistory=async()=>{
     return response.data;
 }
 
+export const verifyOtp = async (payload) => {
 
+    const response = await api.put(
+        "/admin/verifyOtp",
+        payload
+    );
+
+    return response.data;
+
+};
+export const sentOtp = async (data) => {
+    const payload = {
+        email: data
+    }
+
+    const response = await api.post(
+        "/admin/otpsent",
+        payload
+    );
+
+    return response.data;
+
+};

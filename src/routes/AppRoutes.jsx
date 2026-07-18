@@ -23,6 +23,7 @@ import VerifyOtp from '../pages/auth/VerifyOtp'
 import ResetPassword from '../pages/auth/ResetPassword'
 import DonationHistory from '../pages/admin/DonationHistory'
 import CharityDetails from '../pages/charity/CharityDetails'
+import AdminPermissionPage from '../pages/AdminPermissionPage'
 
 const AppRoutes = () => {
   const { isAuthenticated, loading } = useAuth();
@@ -51,7 +52,8 @@ const AppRoutes = () => {
       <Route path="/verify-otp" element={<VerifyOtp />} />
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/charities" element={<CharityList />} />
-            <Route path="/charities/details/:id" element={<CharityDetails />} />
+      <Route path="/charities/details/:id" element={<CharityDetails />} />
+      <Route path="/adminPermision" element={<AdminPermissionPage />} />
     </Routes>
   )
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ProjectHeader from "../../components/projectProfile/ProjectHeader";
 import ProjectOverviewCard from "../../components/projectProfile/ProjectOverviewCard";
@@ -9,11 +9,15 @@ import EditProjectModal from "../../components/projectProfile/EditProjectModal";
 import DeleteProjectDialog from "../../components/projectProfile/DeleteProjectDialog";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
-import { projectProfileDetails, editprojectProfileDetails, deleteproject } from "../../services/project.service";
+import { projectProfileDetails, editprojectProfileDetails, deleteproject, uploadImage } from "../../services/project.service";
 
 const ProjectProfile = () => {
 
     const { id } = useParams()
+
+    const fileInputRef = useRef(null);
+
+    const [uploadLoading, setUploadLoading] = useState(false);
 
     const navigate = useNavigate();
 
@@ -124,6 +128,52 @@ const ProjectProfile = () => {
         }
     }
 
+    const handleCoverImageChange = async (e) => {
+        const file = e.target.files[0];
+
+        if (!file) return;
+
+        if (!file.type.startsWith("image/")) {
+            toast.error("Please select an image.");
+            return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+            toast.error("Image size must be less than 5MB.");
+            return;
+        }
+
+        try {
+            setUploadLoading(true);
+
+            const formData = new FormData();
+            
+            formData.append("coverImage", file);
+            console.log();
+            const projectId=id
+            
+            const result = await uploadImage(projectId, formData);
+
+            toast.success(result.message);
+
+            await getprojectDetails();
+
+            e.target.value = "";
+
+        } catch (error) {
+
+            toast.error(
+                error.response?.data?.message ||
+                "Failed to upload cover image."
+            );
+
+        } finally {
+
+            setUploadLoading(false);
+
+        }
+    };
+
     return (
 
         <>
@@ -148,6 +198,9 @@ const ProjectProfile = () => {
                         project={project}
                         onEdit={handleEditOpen}
                         onDelete={() => setDeleteOpen(true)}
+                        fileInputRef={fileInputRef}
+                        onCoverImageChange={handleCoverImageChange}
+                        uploadLoading={uploadLoading}
                     />
 
                     {/* Overview */}
