@@ -58,14 +58,12 @@ const RegisterCharityModal = ({
 
                 <form
                     onSubmit={handleSubmit}
-                    className="p-6 space-y-4"
+                    className="p-6 space-y-5"
                 >
-
-                    <div className="grid md:grid-cols-2 gap-4">
+                    <div className="grid md:grid-cols-2 gap-5">
 
                         <div>
-
-                            <label className="text-sm font-medium text-gray-700">
+                            <label className="block text-sm font-semibold text-gray-700 mb-2">
                                 Charity Name
                             </label>
 
@@ -75,15 +73,13 @@ const RegisterCharityModal = ({
                                 value={formData.organizationName}
                                 onChange={handleChange}
                                 placeholder="Helping Hands Foundation"
-                                className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2.5 outline-none focus:border-green-500 focus:ring-2 focus:ring-green-100"
+                                className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-green-500 focus:ring-4 focus:ring-green-100"
                             />
-
                         </div>
 
                         <div>
-
-                            <label className="text-sm font-medium text-gray-700">
-                                Registration No.
+                            <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                Registration Number
                             </label>
 
                             <input
@@ -91,36 +87,32 @@ const RegisterCharityModal = ({
                                 name="registrationNumber"
                                 value={formData.registrationNumber}
                                 onChange={handleChange}
-                                placeholder="NGO-123456"
-                                className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2.5 outline-none focus:border-green-500 focus:ring-2 focus:ring-green-100"
+                                placeholder="NGO-2026-12345"
+                                className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-green-500 focus:ring-4 focus:ring-green-100"
                             />
-
                         </div>
 
                     </div>
 
                     <div>
-
-                        <label className="text-sm font-medium text-gray-700">
+                        <label className="block text-sm font-semibold text-gray-700 mb-2">
                             Description
                         </label>
 
                         <textarea
-                            rows={3}
+                            rows={4}
                             name="description"
                             value={formData.description}
                             onChange={handleChange}
-                            placeholder="Briefly describe your charity..."
-                            className="mt-1 w-full resize-none rounded-lg border border-gray-300 px-3 py-2.5 outline-none focus:border-green-500 focus:ring-2 focus:ring-green-100"
+                            placeholder="Tell us about your organization and the communities you serve..."
+                            className="w-full resize-none rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-green-500 focus:ring-4 focus:ring-green-100"
                         />
-
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-4">
+                    <div className="grid md:grid-cols-2 gap-5">
 
                         <div>
-
-                            <label className="text-sm font-medium text-gray-700">
+                            <label className="block text-sm font-semibold text-gray-700 mb-2">
                                 Category
                             </label>
 
@@ -128,22 +120,25 @@ const RegisterCharityModal = ({
                                 name="category"
                                 value={formData.category}
                                 onChange={handleChange}
-                                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 outline-none focus:border-green-500 focus:ring-2 focus:ring-green-100"
+                                className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 outline-none transition focus:border-green-500 focus:ring-4 focus:ring-green-100"
                             >
                                 <option value="">Select Category</option>
                                 <option value="Education">Education</option>
                                 <option value="Healthcare">Healthcare</option>
                                 <option value="Food">Food</option>
                                 <option value="Environment">Environment</option>
+                                <option value="Women Empowerment">Women Empowerment</option>
+                                <option value="Child Welfare">Child Welfare</option>
                                 <option value="Animal Welfare">Animal Welfare</option>
                                 <option value="Disaster Relief">Disaster Relief</option>
+                                <option value="Community Development">
+                                    Community Development
+                                </option>
                             </select>
-
                         </div>
 
                         <div>
-
-                            <label className="text-sm font-medium text-gray-700">
+                            <label className="block text-sm font-semibold text-gray-700 mb-2">
                                 Website
                             </label>
 
@@ -153,56 +148,46 @@ const RegisterCharityModal = ({
                                 value={formData.website}
                                 onChange={handleChange}
                                 placeholder="https://example.org"
-                                className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2.5 outline-none focus:border-green-500 focus:ring-2 focus:ring-green-100"
+                                className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-green-500 focus:ring-4 focus:ring-green-100"
                             />
-
                         </div>
 
                     </div>
 
-                    {/* Upload */}
+                    <div className="rounded-2xl border border-green-200 bg-green-50 p-4">
 
-                    <div>
+                        <div className="flex items-center gap-3">
 
-                        <label className="text-sm font-medium text-gray-700">
-                            Charity Logo
-                        </label>
+                            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-green-600">
 
-                        <label className="mt-2 flex h-28 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-green-300 hover:bg-green-50 transition">
+                                <FiHeart className="text-white text-xl" />
 
-                            <FiUpload
-                                size={24}
-                                className="text-green-600"
-                            />
+                            </div>
 
-                            <p className="mt-2 text-sm text-gray-600">
+                            <div>
 
-                                {formData.logo
-                                    ? formData.logo.name
-                                    : "Click to upload logo"}
+                                <h3 className="font-semibold text-green-800">
+                                    Charity Verification
+                                </h3>
 
-                            </p>
+                                <p className="text-sm text-green-700 mt-1">
+                                    After registration, your charity will be reviewed by the
+                                    administrator before it becomes publicly visible and starts
+                                    accepting donations.
+                                </p>
 
-                            <input
-                                hidden
-                                type="file"
-                                name="logo"
-                                accept="image/*"
-                                onChange={handleChange}
-                            />
+                            </div>
 
-                        </label>
+                        </div>
 
                     </div>
-
-                    {/* Footer */}
 
                     <div className="flex justify-end gap-3 pt-2">
 
                         <button
                             type="button"
                             onClick={onClose}
-                            className="rounded-lg border border-gray-300 px-5 py-2.5 font-medium hover:bg-gray-100 transition"
+                            className="rounded-xl border border-gray-300 px-6 py-3 font-medium transition hover:bg-gray-100"
                         >
                             Cancel
                         </button>
@@ -210,11 +195,9 @@ const RegisterCharityModal = ({
                         <button
                             type="submit"
                             disabled={loading}
-                            className="rounded-lg bg-green-600 px-6 py-2.5 font-medium text-white hover:bg-green-700 disabled:opacity-60 transition"
+                            className="rounded-xl bg-gradient-to-r from-green-600 to-emerald-500 px-7 py-3 font-semibold text-white shadow-md transition hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60"
                         >
-                            {loading
-                                ? "Registering..."
-                                : "Register Charity"}
+                            {loading ? "Registering..." : "Register Charity"}
                         </button>
 
                     </div>
