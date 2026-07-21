@@ -17,7 +17,7 @@ const CharityProjectCard = ({
 
     const percentage = Math.min(
         Math.round(
-            (project.raisedAmount / project.targetAmount) * 100
+            (project.raisedAmount / project.goalAmount) * 100
         ) || 0,
         100
     );
@@ -57,7 +57,7 @@ const CharityProjectCard = ({
                 <img
                     src={
                         project.image ||
-                        "https://placehold.co/700x450?text=Project"
+                        "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1200"
                     }
                     alt={project.title}
                     className="
@@ -189,7 +189,7 @@ const CharityProjectCard = ({
 
                             ₹
                             {Number(
-                                project.targetAmount || 0
+                                project.goalAmount || 0
                             ).toLocaleString("en-IN")}
 
                         </h4>
@@ -268,7 +268,7 @@ const CharityProjectCard = ({
 
                             ₹
                             {Number(
-                                project.targetAmount || 0
+                                project.goalAmount || 0
                             ).toLocaleString("en-IN")}
 
                         </span>
