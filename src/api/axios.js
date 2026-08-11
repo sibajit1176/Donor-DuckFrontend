@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "http://localhost:8000/api",
+    baseURL: "https://donor-duck1-6dqi8mnka-brother-hood2.vercel.app/api",
     headers: {
         "Content-Type": "application/json",
     },
